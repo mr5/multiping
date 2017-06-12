@@ -52,12 +52,11 @@ Promise.all(promises).then((result) => {
     let row = [];
     const host = info[0].match(/--- (\S+) ping statistics ---/)[1];
     row.push(`[${hosts[host]}] ${host}`);
-    const packets = info[1].match(/(\d+)[^,]+\, (\d+) packets received,\s*([^\s]+) packet loss/);
-    packets.shift();
-    row = row.concat(packets);
-    let costs = info[2].match(new RegExp('round-trip min\/avg\/max\/stddev = ([^\/]+)/([^\/]+)/([^\/]+)/([^\/ ]+) ms'));
-    costs.shift();
-    row = row.concat(costs);
+    let packets = info[1].match(/(\d+)[^,]+\, (\d+) packets received,\s*([^\s]+) packet loss(, time \d+ms)?/);
+    console.log(packets);
+    row = row.concat(packets.slice(1, 4));
+    let costs = info[2].match(new RegExp('(round-trip|rtt) min\/avg\/max\/(stddev|mdev) = ([^\/]+)/([^\/]+)/([^\/]+)/([^\/ ]+) ms'));
+    row = row.concat(costs.slice(3));
     rows.push(row);
   });
   const table = new AsciiTable().fromJSON({
