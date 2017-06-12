@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "ascii-table": "^0.0.9",
+    "chalk": "^1.1.3",
+    "execa": "^0.7.0",
+    "lodash": "^4.17.4"
+  },
+  "bin": {
+    "multiping": "./src/ping.js"
+  }
+}
