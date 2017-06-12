@@ -52,10 +52,7 @@ Promise.all(promises).then((result) => {
     let row = [];
     const host = info[0].match(/--- (\S+) ping statistics ---/)[1];
     row.push(`[${hosts[host]}] ${host}`);
-    const packets = info[1].match(/(\d+)[^,]+\, (\d+) packets( received)?,\s*([^\s]+) packet loss(, time \d+ms)?/);
-    if (packets[3] === ' received') {
-      packets.splice(3, 1);
-    }
+    const packets = info[1].match(/(\d+)[^,]+\, (\d+)[^,]+\,\s*([^\s]+)[^,]+\,(, time \d+ms)?/);
     row = row.concat(packets.slice(1, 4));
     let costs = info[2].match(new RegExp('(round-trip|rtt) min\/avg\/max\/(stddev|mdev) = ([^\/]+)/([^\/]+)/([^\/]+)/([^\/ ]+) ms'));
     row = row.concat(costs.slice(3));
