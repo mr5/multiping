@@ -33,7 +33,7 @@ const hosts = {
 };
 const promises = [];
 for (const host of Object.keys(hosts)) {
-  promises.push(execa.shell(`ping -c 10 -t 500 ${host}`));
+  promises.push(execa.shell(`ping -c 10 -W 1 ${host}`));
 }
 function colorFul(value, yellow = 100, red = 300) {
   const v = parseFloat(value);
